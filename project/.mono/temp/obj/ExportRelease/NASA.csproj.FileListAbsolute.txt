@@ -1,9 +1,0 @@
-C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\bin\ExportRelease\NASA.dll
-C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\bin\ExportRelease\NASA.pdb
-C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\ExportRelease\NASA.csproj.AssemblyReference.cache
-C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\ExportRelease\NASA.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\ExportRelease\NASA.AssemblyInfoInputs.cache
-C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\ExportRelease\NASA.AssemblyInfo.cs
-C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\ExportRelease\NASA.csproj.CoreCompileInputs.cache
-C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\ExportRelease\NASA.dll
-C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\ExportRelease\NASA.pdb
