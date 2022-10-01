@@ -17,7 +17,7 @@ func _ready():
 		var star_instance = star.instance()
 		add_child(star_instance)
 		var dir = Vector3(randf()-0.5,randf()-0.5,randf()-0.5).normalized()
-		star_instance.translation = dir * 1000.0
+		star_instance.translation = dir * 100000.0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

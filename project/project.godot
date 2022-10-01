@@ -8,11 +8,37 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Spatial",
+"class": "CameraMove",
+"language": "GDScript",
+"path": "res://CameraMove.gd"
+}, {
+"base": "RichTextLabel",
+"class": "ISSData",
+"language": "GDScript",
+"path": "res://ISSData.gd"
+} ]
+_global_script_class_icons={
+"CameraMove": "",
+"ISSData": ""
+}
+
 [application]
 
 config/name="NASA"
 run/main_scene="res://Scene.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1280
+window/size/height=720
+window/stretch/aspect="expand"
+
+[gdnative]
+
+singletons=[ "res://pythonscript.gdnlib" ]
 
 [gui]
 
@@ -21,6 +47,10 @@ common/drop_mouse_on_gui_input_disabled=true
 [mono]
 
 project/assembly_name="NASA"
+
+[network]
+
+ssl/certificates="res://ca-certificates.crt"
 
 [physics]
 

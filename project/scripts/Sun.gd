@@ -1,12 +1,10 @@
 extends DirectionalLight
 
+export var sun_handle_path:NodePath
+onready var sun_handle = get_node(sun_handle_path)
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	rotation += Vector3.UP* 1* delta
+	var datetime_dict = Time.get_datetime_dict_from_system(true )
+	var hours = float(datetime_dict.hour) + float(datetime_dict.minute)/60.0
+	rotation_degrees.y = hours/24.0*360.0 + 180.0
+	sun_handle.rotation_degrees.y = hours/24.0*360.0 + 180.0

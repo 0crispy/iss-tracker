@@ -1,86 +1,183 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://models/earth/Earth_1_12756.glb" type="PackedScene" id=1]
+[ext_resource path="res://models/earth/Earth.tscn" type="PackedScene" id=1]
 [ext_resource path="res://StarsSpawner.gd" type="Script" id=2]
 [ext_resource path="res://scripts/Sun.gd" type="Script" id=3]
 [ext_resource path="res://CameraMove.gd" type="Script" id=4]
 [ext_resource path="res://CameraZoom.gd" type="Script" id=5]
 [ext_resource path="res://fonts/font.tres" type="DynamicFont" id=6]
-[ext_resource path="res://UI.gd" type="Script" id=7]
 [ext_resource path="res://models/iss/ISS_stationary.tscn" type="PackedScene" id=8]
+[ext_resource path="res://WebScrapingISS.gd" type="Script" id=9]
+[ext_resource path="res://environment.tres" type="Environment" id=10]
+[ext_resource path="res://models/stars/star_MAT.tres" type="Material" id=11]
+[ext_resource path="res://ISSData.gd" type="Script" id=12]
+[ext_resource path="res://LookDown.gd" type="Script" id=13]
+[ext_resource path="res://2d-map/2DMap.gd" type="Script" id=14]
+[ext_resource path="res://2d-map/8k_earth_daymap.jpg" type="Texture" id=15]
+[ext_resource path="res://2d-map/Satellite-png-hd.png" type="Texture" id=16]
 
-[sub_resource type="ProceduralSky" id=2]
-sky_top_color = Color( 0, 0, 0, 1 )
-sky_horizon_color = Color( 0, 0, 0, 1 )
-sky_energy = 0.0
-ground_bottom_color = Color( 0, 0, 0, 1 )
-ground_horizon_color = Color( 0, 0, 0, 1 )
-sun_color = Color( 1, 0.964706, 0.584314, 1 )
-sun_latitude = 180.0
-sun_longitude = -126.18
-sun_curve = 0.00824692
+[sub_resource type="GDScript" id=3]
+script/source = "extends Node2D
 
-[sub_resource type="Environment" id=1]
-background_mode = 1
-background_sky = SubResource( 2 )
-background_energy = 1.04
-ambient_light_color = Color( 0.419608, 0.419608, 0.419608, 1 )
-dof_blur_far_distance = 0.01
-dof_blur_near_distance = 8192.0
-dof_blur_near_amount = 0.01
-glow_intensity = 1.07
-glow_strength = 1.07
-glow_bloom = 0.75
-glow_hdr_threshold = 1.27
-glow_hdr_luminance_cap = 14.44
-adjustment_enabled = true
+
+# Declare member variables here. Examples:
+var a = 100.0
+export var test:NodePath
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	a-=delta
+"
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Theme" id=2]
 
 [node name="Spatial" type="WorldEnvironment"]
-environment = SubResource( 1 )
+environment = ExtResource( 10 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.998363, 0.0555217, -0.0137293, -0.0568547, 0.989533, -0.132635, 0.00622147, 0.133199, 0.99107, 0, 0, 0 )
-light_color = Color( 1, 0.980392, 0.768627, 1 )
-light_energy = 3.078
-script = ExtResource( 3 )
+[node name="UI" type="Node2D" parent="."]
+script = SubResource( 3 )
+test = NodePath("Panel2/RichTextLabel")
 
-[node name="Earth" parent="." instance=ExtResource( 1 )]
-transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
+[node name="ViewportContainer" type="ViewportContainer" parent="UI"]
+margin_right = 946.0
+margin_bottom = 720.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
 
-[node name="iss" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.0233094, 0, 0, 0, 0.0233094, 0, 0, 0, 0.0233094, 0, 0, 5320.35 )
+[node name="Viewport" type="Viewport" parent="UI/ViewportContainer"]
+size = Vector2( 946, 720 )
+handle_input_locally = false
+render_target_update_mode = 3
 
-[node name="Spatial" type="Spatial" parent="iss"]
+[node name="ISS Handle" type="Spatial" parent="UI/ViewportContainer/Viewport"]
+transform = Transform( -4.37114e-08, 0.5, -0.866025, 0, -0.866026, -0.5, -1, -2.18557e-08, 3.78552e-08, 0, 0, 0 )
+
+[node name="iss_spatial" type="Spatial" parent="UI/ViewportContainer/Viewport/ISS Handle"]
+transform = Transform( 1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, -5000 )
+
+[node name="iss" parent="UI/ViewportContainer/Viewport/ISS Handle/iss_spatial" instance=ExtResource( 8 )]
+transform = Transform( 0.0233094, 0, 4.65661e-10, 0, 0.0233094, 5.82077e-10, 0, 5.82077e-11, 0.0233094, 0, 0, 0 )
+
+[node name="Spatial" type="Spatial" parent="UI/ViewportContainer/Viewport/ISS Handle/iss_spatial/iss"]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 script = ExtResource( 4 )
 
-[node name="Camera" type="Camera" parent="iss/Spatial"]
+[node name="Camera" type="Camera" parent="UI/ViewportContainer/Viewport/ISS Handle/iss_spatial/iss/Spatial"]
 transform = Transform( 1000, 0, 0, 0, 1000, 0, 0, 0, 1000, 0, 0, 660.957 )
 fov = 30.0
 near = 0.01
 far = 60000.0
 script = ExtResource( 5 )
 
-[node name="CSGBox" type="CSGBox" parent="."]
+[node name="Sun" type="DirectionalLight" parent="UI/ViewportContainer/Viewport"]
+transform = Transform( 0.476177, 0, 0.87935, 0, 1, 0, -0.87935, 0, 0.476177, 0, 0, 0 )
+light_color = Color( 1, 0.980392, 0.768627, 1 )
+light_energy = 2.147
+script = ExtResource( 3 )
+sun_handle_path = NodePath("../SunHandle")
+
+[node name="CSGBox" type="CSGBox" parent="UI/ViewportContainer/Viewport"]
 transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
 visible = false
 width = 0.008
 height = 808.74
 depth = 1064.07
 
-[node name="UI" type="Node2D" parent="."]
-script = ExtResource( 7 )
-test = NodePath("RichTextLabel")
+[node name="Earth" parent="UI/ViewportContainer/Viewport" instance=ExtResource( 1 )]
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="UI"]
-margin_left = 1.0
-margin_top = 2.0
-margin_right = 1119.0
-margin_bottom = 202.0
-rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/normal_font = ExtResource( 6 )
-text = "Joe Biden"
+[node name="Spatial" type="Spatial" parent="UI/ViewportContainer/Viewport/Earth"]
+transform = Transform( -0.743145, -0.282787, 0.606438, 0, 0.906308, 0.422618, -0.669131, 0.314067, -0.673518, 0, 0, 0 )
 
-[node name="Stars" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5335.76 )
+[node name="CSGSphere" type="CSGSphere" parent="UI/ViewportContainer/Viewport/Earth/Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -500 )
+
+[node name="SunHandle" type="Spatial" parent="UI/ViewportContainer/Viewport"]
 script = ExtResource( 2 )
-camera = NodePath("../iss/Spatial/Camera")
+camera = NodePath("../ISS Handle/iss_spatial/iss/Spatial/Camera")
+
+[node name="SunModel" type="CSGSphere" parent="UI/ViewportContainer/Viewport/SunHandle"]
+transform = Transform( 1000, 0, 0, 0, 1000, 0, 0, 0, 1000, 0, 0, 30000 )
+radial_segments = 30
+rings = 30
+material = ExtResource( 11 )
+
+[node name="Panel" type="Panel" parent="UI"]
+margin_left = 950.0
+margin_right = 1280.0
+margin_bottom = 262.0
+rect_scale = Vector2( 1.00828, 1 )
+rect_pivot_offset = Vector2( 461, 449 )
+
+[node name="Sprite" type="Sprite" parent="UI/Panel"]
+position = Vector2( 165.447, 130.5 )
+scale = Vector2( 0.0404367, 0.0637207 )
+texture = ExtResource( 15 )
+
+[node name="center" type="Node2D" parent="UI/Panel/Sprite"]
+
+[node name="Sprite" type="Sprite" parent="UI/Panel/Sprite/center"]
+scale = Vector2( 2, 1 )
+texture = ExtResource( 16 )
+script = ExtResource( 14 )
+iss_data_path = NodePath("../../../../Panel2/RichTextLabel")
+
+[node name="Panel2" type="Panel" parent="UI"]
+margin_left = 946.0
+margin_top = 262.0
+margin_right = 1280.0
+margin_bottom = 720.0
+rect_pivot_offset = Vector2( 461, 449 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Panel2"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 667.0
+margin_bottom = 719.0
+rect_scale = Vector2( 0.5, 0.5 )
+theme = SubResource( 2 )
+custom_colors/default_color = Color( 0, 1, 0.0627451, 1 )
+custom_fonts/normal_font = ExtResource( 6 )
+text = "-----------ISS DATA------------
+Latitude:
+Longitude:
+Altitude:
+Speed:
+"
+script = ExtResource( 12 )
+
+[node name="Button" type="Button" parent="UI/Panel2"]
+margin_top = 116.0
+margin_right = 333.0
+margin_bottom = 159.0
+script = ExtResource( 13 )
+camera_move_path = NodePath("../../ViewportContainer/Viewport/ISS Handle/iss_spatial/iss/Spatial")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Panel2/Button"]
+margin_left = 1.0
+margin_top = 11.0
+margin_right = 667.0
+margin_bottom = 73.0
+rect_scale = Vector2( 0.5, 0.5 )
+mouse_filter = 2
+theme = SubResource( 2 )
+custom_colors/default_color = Color( 0, 1, 0.0627451, 1 )
+custom_fonts/normal_font = ExtResource( 6 )
+text = "-----------Look down-----------"
+
+[node name="ISS" type="HTTPRequest" parent="."]
+script = ExtResource( 9 )
+text_label_path = NodePath("../UI/Panel2/RichTextLabel")
+iss_handle_path = NodePath("../UI/ViewportContainer/Viewport/ISS Handle")
+iss_spatial_path = NodePath("../UI/ViewportContainer/Viewport/ISS Handle/iss_spatial")

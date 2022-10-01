@@ -1,5 +1,9 @@
 extends Camera
 
+
+#export var camera_spatial_path:NodePath
+#onready var camera_spatial = get_node(camera_spatial_path)
+
 var min_z = 50
 var max_z = 600000
 var desired_z = 650
@@ -13,6 +17,7 @@ func _ready():
 func _process(delta):
 	desired_z = clamp(desired_z,min_z,max_z)
 	translation.z = lerp(translation.z,desired_z,delta*10)
+	
 	
 func _input(event):
 	if event is InputEventMouseButton:
