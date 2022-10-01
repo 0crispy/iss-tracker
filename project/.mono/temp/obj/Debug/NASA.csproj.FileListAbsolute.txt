@@ -1,0 +1,9 @@
+C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\Debug\NASA.csproj.AssemblyReference.cache
+C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\Debug\NASA.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\Debug\NASA.AssemblyInfoInputs.cache
+C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\Debug\NASA.AssemblyInfo.cs
+C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\Debug\NASA.csproj.CoreCompileInputs.cache
+C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\bin\Debug\NASA.dll
+C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\bin\Debug\NASA.pdb
+C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\Debug\NASA.dll
+C:\Users\Kristupas\Documents\iss-tracker\project\.mono\temp\obj\Debug\NASA.pdb
