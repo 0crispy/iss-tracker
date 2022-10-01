@@ -1,27 +1,86 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://models/earth/Earth_1_12756.glb" type="PackedScene" id=1]
-[ext_resource path="res://models/iss/ISS_stationary.glb" type="PackedScene" id=2]
+[ext_resource path="res://StarsSpawner.gd" type="Script" id=2]
 [ext_resource path="res://scripts/Sun.gd" type="Script" id=3]
+[ext_resource path="res://CameraMove.gd" type="Script" id=4]
+[ext_resource path="res://CameraZoom.gd" type="Script" id=5]
+[ext_resource path="res://fonts/font.tres" type="DynamicFont" id=6]
+[ext_resource path="res://UI.gd" type="Script" id=7]
+[ext_resource path="res://models/iss/ISS_stationary.tscn" type="PackedScene" id=8]
+
+[sub_resource type="ProceduralSky" id=2]
+sky_top_color = Color( 0, 0, 0, 1 )
+sky_horizon_color = Color( 0, 0, 0, 1 )
+sky_energy = 0.0
+ground_bottom_color = Color( 0, 0, 0, 1 )
+ground_horizon_color = Color( 0, 0, 0, 1 )
+sun_color = Color( 1, 0.964706, 0.584314, 1 )
+sun_latitude = 180.0
+sun_longitude = -126.18
+sun_curve = 0.00824692
 
 [sub_resource type="Environment" id=1]
 background_mode = 1
+background_sky = SubResource( 2 )
 background_energy = 1.04
+ambient_light_color = Color( 0.419608, 0.419608, 0.419608, 1 )
+dof_blur_far_distance = 0.01
+dof_blur_near_distance = 8192.0
+dof_blur_near_amount = 0.01
+glow_intensity = 1.07
+glow_strength = 1.07
+glow_bloom = 0.75
+glow_hdr_threshold = 1.27
+glow_hdr_luminance_cap = 14.44
+adjustment_enabled = true
 
 [node name="Spatial" type="WorldEnvironment"]
 environment = SubResource( 1 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-light_color = Color( 1, 0.984314, 0.807843, 1 )
-light_energy = 1.757
+transform = Transform( 0.998363, 0.0555217, -0.0137293, -0.0568547, 0.989533, -0.132635, 0.00622147, 0.133199, 0.99107, 0, 0, 0 )
+light_color = Color( 1, 0.980392, 0.768627, 1 )
+light_energy = 3.078
 script = ExtResource( 3 )
 
-[node name="Earth_1_12756" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0 )
+[node name="Earth" parent="." instance=ExtResource( 1 )]
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
 
-[node name="ISS_stationary" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 5.22323 )
+[node name="iss" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.0233094, 0, 0, 0, 0.0233094, 0, 0, 0, 0.0233094, 0, 0, 5320.35 )
 
-[node name="Camera" type="Camera" parent="ISS_stationary"]
+[node name="Spatial" type="Spatial" parent="iss"]
+script = ExtResource( 4 )
+
+[node name="Camera" type="Camera" parent="iss/Spatial"]
 transform = Transform( 1000, 0, 0, 0, 1000, 0, 0, 0, 1000, 0, 0, 660.957 )
-fov = 87.1875
+fov = 30.0
+near = 0.01
+far = 60000.0
+script = ExtResource( 5 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
+visible = false
+width = 0.008
+height = 808.74
+depth = 1064.07
+
+[node name="UI" type="Node2D" parent="."]
+script = ExtResource( 7 )
+test = NodePath("RichTextLabel")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI"]
+margin_left = 1.0
+margin_top = 2.0
+margin_right = 1119.0
+margin_bottom = 202.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/normal_font = ExtResource( 6 )
+text = "Joe Biden"
+
+[node name="Stars" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5335.76 )
+script = ExtResource( 2 )
+camera = NodePath("../iss/Spatial/Camera")

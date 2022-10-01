@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://models/iss/ISS_stationary.glb" type="PackedScene" id=1]
+
+[node name="ISS_stationary" instance=ExtResource( 1 )]
+
+[node name="23 S4 Truss_02" parent="_root/02 Unity Node 1/09 Destiny Space Laboratory/14 S0 Truss/16 S1 Truss/22 S3 Truss/23 S4 Truss/24 S5 Truss" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.487251, -0.680742, -2.39077 )
