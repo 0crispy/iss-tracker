@@ -1,7 +1,7 @@
 # International Space Station tracker made in Godot!
 
 ## [Check it out!](https://crispystudios.itch.io/iss-tracker)
-![Screenshot 1](screenshots/screenshot1.png)
+![Screenshot 1](https://i.ibb.co/58VYVg9/screenshot1.png)
 
 ## Features:
 - 3D interactive ISS-Tracker
