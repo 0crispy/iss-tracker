@@ -1,8 +1,8 @@
 extends Camera
 
 
-#export var camera_spatial_path:NodePath
-#onready var camera_spatial = get_node(camera_spatial_path)
+export var iss_data_path:NodePath
+onready var iss_data =  get_node(iss_data_path)
 
 var min_z = 50
 var max_z = 600000
@@ -17,6 +17,7 @@ func _ready():
 func _process(delta):
 	desired_z = clamp(desired_z,min_z,max_z)
 	translation.z = lerp(translation.z,desired_z,delta*10)
+	iss_data.dist_to_iss_from_camera = translation.z
 	
 	
 func _input(event):

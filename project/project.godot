@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "CameraMove",
 "language": "GDScript",
-"path": "res://CameraMove.gd"
+"path": "res://scripts/CameraMove.gd"
 }, {
 "base": "RichTextLabel",
 "class": "ISSData",
 "language": "GDScript",
-"path": "res://ISSData.gd"
+"path": "res://scripts/ISSData.gd"
 } ]
 _global_script_class_icons={
 "CameraMove": "",
@@ -38,7 +38,7 @@ window/stretch/aspect="expand"
 
 [gdnative]
 
-singletons=[ "res://pythonscript.gdnlib" ]
+singletons=[  ]
 
 [gui]
 
@@ -61,4 +61,4 @@ common/enable_pause_aware_picking=true
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://environments/default_env.tres"

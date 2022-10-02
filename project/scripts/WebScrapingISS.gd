@@ -28,6 +28,8 @@ func _on_request_completed(result, response_code, headers, body):
 	#print(body.get_string_from_utf8())
 	
 	var json = JSON.parse(body.get_string_from_utf8())
+	if json.result == null:
+		return
 	desired_rotation = Vector3(json.result.latitude,json.result.longitude,0.0)
 	desired_altitude = -(6370.0 + json.result.altitude)/12.742*10.0
 	

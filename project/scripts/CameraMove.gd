@@ -8,6 +8,7 @@ var first_rotation
 var dragging
 var desired_rotation
 
+
 var sensitivity = 1.0
 
 
@@ -23,7 +24,21 @@ func _process(delta):
 		desired_rotation = Vector3(desired_rotation.x,desired_rotation.y,0.0) + Vector3((first_pos.y - mouse_pos.y),(first_pos.x - mouse_pos.x),0.0) * sensitivity
 		first_pos = get_viewport().get_mouse_position()
 	rotation_degrees = lerp(rotation_degrees,desired_rotation,delta * rotation_smoothing_speed)
-	# rotation_degrees.x = clamp(90.0,270.0,rotation_degrees.x)
+	var converted_rotation_degrees = Vector3(convert_angle(rotation_degrees.x),convert_angle(rotation_degrees.y),0.0)
+	if converted_rotation_degrees.y < 70.0:
+		rotation_degrees.y = 70.0
+		desired_rotation.y = 70.0
+	elif converted_rotation_degrees.y > 250.0:
+		rotation_degrees.y = 250.0
+		desired_rotation.y = 250.0
+	if converted_rotation_degrees.x > 70.0 && converted_rotation_degrees.x < 250.0:
+		if converted_rotation_degrees.x < (70.0+250.0)/2.0:
+			rotation_degrees.x = 70.0
+			desired_rotation.x = 70.0
+		else:
+			rotation_degrees.x = 250.0
+			desired_rotation.x = 250.0
+	
 	pass
 	
 func _input(event):
@@ -36,3 +51,15 @@ func _input(event):
 			if !event.pressed:
 				dragging = false
 				
+func convert_angle(angle):
+	var output = angle
+	var flag = true
+	while flag:
+		flag = false
+		if output > 360.0:
+			flag = true
+			output-=360.0
+		elif output < 0.0:
+			flag = true
+			output+=360.0
+	return output
