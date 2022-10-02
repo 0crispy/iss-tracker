@@ -1,4 +1,8 @@
 # International Space Station tracker made in Godot!
+
+## [Check it out!](https://crispystudios.itch.io/iss-tracker)
+![Screenshot 1](https://www.solarsystemscope.com/textures/download/2k_earth_daymap.jpg)
+
 ## Features:
 - 3D interactive ISS-Tracker
 - ISS map location viewer
@@ -20,6 +24,5 @@
 - https://solarsystem.nasa.gov/resources/2378/international-space-station-3d-model/
 - https://solarsystem.nasa.gov/resources/2393/earth-3d-model/
 - https://www.solarsystemscope.com/textures/download/2k_earth_daymap.jpg
-## [Check it out!](https://crispystudios.itch.io/iss-tracker)
 
   
