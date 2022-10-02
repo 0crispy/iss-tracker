@@ -11,6 +11,10 @@ var desired_rotation
 
 var sensitivity = 1.0
 
+var max_rotate = 250.0
+var min_rotate = 110.0
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,19 +29,19 @@ func _process(delta):
 		first_pos = get_viewport().get_mouse_position()
 	rotation_degrees = lerp(rotation_degrees,desired_rotation,delta * rotation_smoothing_speed)
 	var converted_rotation_degrees = Vector3(convert_angle(rotation_degrees.x),convert_angle(rotation_degrees.y),0.0)
-	if converted_rotation_degrees.y < 70.0:
-		rotation_degrees.y = 70.0
-		desired_rotation.y = 70.0
-	elif converted_rotation_degrees.y > 250.0:
-		rotation_degrees.y = 250.0
-		desired_rotation.y = 250.0
-	if converted_rotation_degrees.x > 70.0 && converted_rotation_degrees.x < 250.0:
-		if converted_rotation_degrees.x < (70.0+250.0)/2.0:
-			rotation_degrees.x = 70.0
-			desired_rotation.x = 70.0
+	if converted_rotation_degrees.y < min_rotate:
+		rotation_degrees.y = min_rotate
+		desired_rotation.y = min_rotate
+	elif converted_rotation_degrees.y > max_rotate:
+		rotation_degrees.y = max_rotate
+		desired_rotation.y = max_rotate
+	if converted_rotation_degrees.x > min_rotate && converted_rotation_degrees.x < max_rotate:
+		if converted_rotation_degrees.x < (min_rotate+max_rotate)/2.0:
+			rotation_degrees.x = min_rotate
+			desired_rotation.x = min_rotate
 		else:
-			rotation_degrees.x = 250.0
-			desired_rotation.x = 250.0
+			rotation_degrees.x = max_rotate
+			desired_rotation.x = max_rotate
 	
 	pass
 	
