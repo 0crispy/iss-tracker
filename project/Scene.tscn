@@ -118,7 +118,7 @@ transform = Transform( -1, 0, -8.74228e-08, 2.6054e-15, 1, -2.98023e-08, 8.74228
 remote_path = NodePath("../../../../../ViewportContainer2/Viewport/Spatial")
 
 [node name="Sun" type="DirectionalLight" parent="UI/ViewportContainer/Viewport"]
-transform = Transform( 0.476177, 0, 0.87935, 0, 1, 0, -0.87935, 0, 0.476177, 0, 0, 0 )
+transform = Transform( -0.832922, 0, -0.553392, 0, 1, 0, 0.553392, 0, -0.832922, 0, 0, 0 )
 light_color = Color( 1, 0.980392, 0.768627, 1 )
 light_energy = 2.147
 script = ExtResource( 3 )
